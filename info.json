@@ -1,0 +1,13 @@
+{
+    "name": "expensive-warehousing",
+    "version": "0.1.0",
+    "title": "Expensive Warehousing",
+    "author": "RedRafe",
+    "source": "https://github.com/RedRafe/expensive-warehousing",
+    "homepage": "https://mods.factorio.com/user/RedRafe",
+    "factorio_version": "1.1",
+    "dependencies": [
+        "base >= 1.1.0"
+    ],
+    "description": "Storing items in large quantity costs power. Warehouses left disconnected from the network will start to spill items"
+}
