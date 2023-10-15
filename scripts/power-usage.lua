@@ -63,7 +63,6 @@ local function update_power_drain()
     end
 
     local inventory = unit.inventory
-    inventory.sort_and_merge()
 
     local items = inventory.get_contents()
     local weight = 0

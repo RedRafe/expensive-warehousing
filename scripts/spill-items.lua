@@ -8,8 +8,6 @@ local function spill_content(unit)
 
   if inventory.is_empty() then return end
 
-  inventory.sort_and_merge()
-
   -- docs: https://lua-api.factorio.com/latest/classes/LuaSurface.html#spill_item_stack
   for i=1, math.min(#inventory, SLOTS_PER_SECOND) do
     local c = 

@@ -11,5 +11,6 @@ local handler = require "__core__.lualib.event_handler"
 
 handler.add_libraries{
   require "scripts.power-usage",
-  require "scripts.spill-items"
+  require "scripts.spill-items",
+  require "scripts.sorter"
 }
