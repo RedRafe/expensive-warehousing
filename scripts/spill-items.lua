@@ -36,6 +36,8 @@ local function check_connection()
 
     if not powersource.is_connected_to_electric_network() then
       spill_content(unit)
+    elseif powersource.status == defines.entity_status.low_power then
+      spill_content(unit)      
     end
 
     ::skip::
