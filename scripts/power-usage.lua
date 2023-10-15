@@ -15,10 +15,21 @@ local function get_weight(item)
   return WEIGHTS[item] or 1
 end
 
-local function compute_power_usage(weight)
-  local p = (BASE + (weight ^ EXP) * STEP ) * MW_RATE
-  local m = MAX * MW_RATE
-  return p < m and p or m
+--- base consumption of a container
+local function _base(size)
+  return BASE * size / 500
+end
+
+--- global multiplier
+local function _gm()
+  local gm = (#global.units / 50) ^ 3.25
+  if gm > 10 then return 10 end
+  return math.max(gm, 1/55)
+end
+
+local function compute_power_usage(weight, size)
+  local p = _base(size) + (weight ^ EXP) * STEP * _gm()
+  return math.min(p, MAX) * MW_RATE
 end
 
 local function on_built(event)
@@ -35,7 +46,8 @@ local function on_built(event)
       position = entity.position,
       force = entity.force
     },
-    inventory = entity.get_inventory(CHEST_ID)
+    inventory = entity.get_inventory(CHEST_ID),
+    i_size = entity.prototype.get_inventory_size(CHEST_ID)
 	}
 end
 
@@ -63,6 +75,7 @@ local function update_power_drain()
     end
 
     local inventory = unit.inventory
+    local i_size = unit.i_size or entity.prototype.get_inventory_size(CHEST_ID)
 
     local items = inventory.get_contents()
     local weight = 0
@@ -71,7 +84,7 @@ local function update_power_drain()
       weight = get_weight(item) * amount / stack_size * 200
     end
 
-    local power_usage = compute_power_usage(weight)
+    local power_usage = compute_power_usage(weight, i_size)
     powersource.power_usage = power_usage
     powersource.electric_buffer_size = power_usage
 
