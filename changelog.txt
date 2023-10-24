@@ -1,6 +1,6 @@
 ---------------------------------------------------------------------------------------------------
 Version: 0.2.0
-Date: 2023-10-15
+Date: 2023-10-24
   Changes:
   - Chests now sort only when opened
   - Containers now spill when low on power too
